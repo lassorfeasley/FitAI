@@ -2,10 +2,14 @@
 
 import PropTypes from "prop-types";
 import React from "react";
-import { ArrowLeftIcon, PencilSquareIcon, PlusIcon, MagnifyingGlassIcon } from '@heroicons/react/24/solid';
+import {
+  ArrowLeftIcon,
+  PencilSquareIcon,
+  PlusIcon,
+  MagnifyingGlassIcon,
+} from "@heroicons/react/24/solid";
 import SearchField from "@/components/ui/search-field";
 import { useNavigate, useLocation } from "react-router-dom";
-import Icon from "@/components/ui/Icon";
 
 export const AppHeader = ({
   showActionBar = true,
@@ -45,7 +49,9 @@ export const AppHeader = ({
             role="button"
             tabIndex={0}
             aria-label="Back"
-            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') onBackHandler(); }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") onBackHandler();
+            }}
           >
             <ArrowLeftIcon className="w-6 h-6 text-zinc-700" />
           </div>
@@ -73,7 +79,9 @@ export const AppHeader = ({
           role="button"
           tabIndex={0}
           aria-label="Action bar"
-          onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') onAction && onAction(); }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") onAction && onAction();
+          }}
         >
           <div className="Actiontext flex-1 justify-start text-stone-50 text-base font-normal font-['Space_Grotesk'] leading-none">
             {actionBarText}
@@ -116,4 +124,4 @@ AppHeader.propTypes = {
   searchPlaceholder: PropTypes.string,
 };
 
-export default AppHeader; 
+export default AppHeader;

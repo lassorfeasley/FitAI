@@ -3,12 +3,8 @@ import { supabase } from "@/supabaseClient";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useMutation } from "@tanstack/react-query";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import AppHeader from "@/components/layout/AppHeader";
 
 export default function CreateAccount() {
   const [email, setEmail] = useState("");
@@ -50,17 +46,15 @@ export default function CreateAccount() {
             </div>
             <div
               className="text-slate-600 text-sm font-normal font-['Space_Grotesk'] leading-tight cursor-pointer"
-              onClick={() => navigate('/login')}
+              onClick={() => navigate("/login")}
             >
               Log in
             </div>
           </div>
           {/* Email field label */}
           <div className="self-stretch flex flex-col justify-start items-start gap-2.5">
-            <div className="self-stretch inline-flex justify-between items-start">
-              <div className="flex-1 text-slate-600 text-sm font-bold font-['Space_Grotesk'] leading-tight">
-                Email
-              </div>
+            <div className="flex-1 text-slate-600 text-sm font-bold font-['Space_Grotesk'] leading-tight">
+              Email
             </div>
             <div className="mb-4 w-full">
               <Input
@@ -76,10 +70,8 @@ export default function CreateAccount() {
           </div>
           {/* Password field label */}
           <div className="self-stretch flex flex-col justify-start items-start gap-2.5">
-            <div className="self-stretch inline-flex justify-between items-start">
-              <div className="text-slate-600 text-sm font-bold font-['Space_Grotesk'] leading-tight">
-                Password
-              </div>
+            <div className="text-slate-600 text-sm font-bold font-['Space_Grotesk'] leading-tight">
+              Password
             </div>
             <div className="mb-4 w-full">
               <Input
@@ -93,6 +85,11 @@ export default function CreateAccount() {
               />
             </div>
           </div>
+          {signupMutation.error && (
+            <div className="text-red-500 text-sm font-bold font-['Space_Grotesk'] leading-tight">
+              {errorMessage}
+            </div>
+          )}
           {/* Create Account button */}
           <Button
             type="submit"
@@ -101,7 +98,9 @@ export default function CreateAccount() {
             className="w-full h-[56px]"
             onClick={handleSignup}
           >
-            {signupMutation.isPending ? "Creating Account..." : "Create Account"}
+            {signupMutation.isPending
+              ? "Creating Account..."
+              : "Create Account"}
           </Button>
         </CardContent>
       </Card>

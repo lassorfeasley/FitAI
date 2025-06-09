@@ -1,10 +1,9 @@
 // @https://www.figma.com/design/Fg0Jeq5kdncLRU9GnkZx7S/FitAI?node-id=0-38&t=iSeOx5vBGiOUayMu-4
 
 import React from "react";
-import { Link, useLocation, NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import { cn } from "@/lib/utils";
-import Icon from "@/components/ui/Icon";
 
 export default function NavBar({ navItems }) {
   const location = useLocation();

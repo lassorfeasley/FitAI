@@ -2,23 +2,21 @@
 
 import { supabase } from "@/supabaseClient";
 import React, { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import AppHeader from "@/components/layout/AppHeader";
 import { PageNameContext } from "@/App";
-import ProgramCard from '@/components/common/Cards/ProgramCard';
-import { useQuery } from "@tanstack/react-query";
-import MainContainer from "@/components/layout/MainContainer";
-import { useNavBarVisibility } from "@/NavBarVisibilityContext";
+import ProgramCard from "@/components/common/Cards/ProgramCard";
 import { useAuth } from "@/contexts/AuthContext";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetFooter, SheetDescription } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetFooter,
+  SheetDescription,
+} from "@/components/ui/sheet";
 import { Input } from "@/components/ui/input";
-import Icon from "@/components/ui/Icon";
 import { Button } from "@/components/ui/button";
-import NumericInput from "@/components/ui/numeric-input";
-import WeightCompoundField from "@/components/common/forms/WeightCompoundField";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import AddNewExerciseForm from "@/components/common/forms/AddNewExerciseForm";
-import CardWrapper from '@/components/common/Cards/Wrappers/CardWrapper';
 
 const ProgramsIndex = () => {
   const { setPageName } = useContext(PageNameContext);
@@ -85,7 +83,7 @@ const ProgramsIndex = () => {
       // Success: close sheet, refresh list, and redirect
       setShowSheet(false);
       setProgramName("");
-      setRefreshFlag(f => f + 1);
+      setRefreshFlag((f) => f + 1);
       navigate(`/programs/${program_id}/configure`);
     } catch (err) {
       alert(err.message || "Failed to create program");
@@ -114,7 +112,7 @@ const ProgramsIndex = () => {
         }}
         data-component="AppHeader"
       />
-      <CardWrapper className="px-4">
+      <div className="flex flex-col gap-2 px-4 mt-4">
         {loading ? (
           <div className="text-gray-400 text-center py-8">Loading...</div>
         ) : programs.length === 0 ? (
@@ -131,19 +129,23 @@ const ProgramsIndex = () => {
             />
           ))
         )}
-      </CardWrapper>
+      </div>
       {/* Sheet for creating a new program */}
       {showSheet && (
         <Sheet open={showSheet} onOpenChange={setShowSheet}>
           <SheetContent className="w-[350px] p-6">
             <SheetHeader className="text-left items-start">
-              <SheetTitle className="text-left">What should we call this program?</SheetTitle>
-              <SheetDescription className="text-left">Enter program name</SheetDescription>
+              <SheetTitle className="text-left">
+                What should we call this program?
+              </SheetTitle>
+              <SheetDescription className="text-left">
+                Enter program name
+              </SheetDescription>
             </SheetHeader>
             <Input
               label="Program name"
               value={programName}
-              onChange={e => setProgramName(e.target.value)}
+              onChange={(e) => setProgramName(e.target.value)}
               placeholder="Enter program name"
               ref={inputRef}
               className="h-11 px-2.5 py-1 bg-stone-50 rounded-sm outline outline-1 outline-offset-[-1px] outline-neutral-300 text-left mt-4 mb-4"

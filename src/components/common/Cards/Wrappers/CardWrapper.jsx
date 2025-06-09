@@ -1,12 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-const CardWrapper = ({ 
-  children, 
-  className = '', 
-  cardTitle,
-  ...props 
-}) => {
+const CardWrapper = ({ children, className = "", cardTitle, ...props }) => {
   return (
     <div
       className={`CardWrapper self-stretch w-full rounded-xl flex flex-col justify-start items-start gap-[1px] overflow-hidden ${className}`}
@@ -28,4 +23,4 @@ CardWrapper.propTypes = {
   cardTitle: PropTypes.string,
 };
 
-export default CardWrapper; 
+export default CardWrapper;

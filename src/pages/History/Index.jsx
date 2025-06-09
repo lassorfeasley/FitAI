@@ -1,22 +1,19 @@
 // @https://www.figma.com/design/Fg0Jeq5kdncLRU9GnkZx7S/FitAI?node-id=61-389&t=YBjXtsLhxGedobad-4
 
-
-import React, { useEffect, useState } from 'react';
-import { supabase } from '@/supabaseClient';
-import { Link, useNavigate } from 'react-router-dom';
-import AppHeader from '@/components/layout/AppHeader';
-import MainContainer from '@/components/layout/MainContainer';
-import CardWrapper from '@/components/common/Cards/Wrappers/CardWrapper';
-import WorkoutCard from '@/components/common/Cards/WorkoutCard';
+import React, { useEffect, useState } from "react";
+import { supabase } from "@/supabaseClient";
+import { Link, useNavigate } from "react-router-dom";
+import AppHeader from "@/components/layout/AppHeader";
+import MainContainer from "@/components/layout/MainContainer";
+import CardWrapper from "@/components/common/Cards/Wrappers/CardWrapper";
+import WorkoutCard from "@/components/common/Cards/WorkoutCard";
 import { useAuth } from "@/contexts/AuthContext";
 
 function formatDuration(seconds) {
   const h = Math.floor(seconds / 3600);
   const m = Math.floor((seconds % 3600) / 60);
   const s = seconds % 60;
-  return [h, m, s]
-    .map(unit => String(unit).padStart(2, '0'))
-    .join(':');
+  return [h, m, s].map((unit) => String(unit).padStart(2, "0")).join(":");
 }
 
 const History = () => {
@@ -35,26 +32,30 @@ const History = () => {
       }
       // Fetch workouts with program information and sets in a single query
       const { data: workoutsData, error } = await supabase
-        .from('workouts')
-        .select(`
+        .from("workouts")
+        .select(
+          `
           *,
           programs(program_name),
           sets(id, exercise_id)
-        `)
-        .eq('user_id', user.id)
-        .order('created_at', { ascending: false });
+        `
+        )
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
 
       if (error) {
-        console.error('Error fetching workouts:', error);
+        console.error("Error fetching workouts:", error);
         setWorkouts([]);
         setLoading(false);
         return;
       }
 
       // Process the data
-      const processedWorkouts = (workoutsData || []).map(workout => ({
+      const processedWorkouts = (workoutsData || []).map((workout) => ({
         ...workout,
-        exerciseCount: new Set(workout.sets?.map(set => set.exercise_id) || []).size
+        exerciseCount: new Set(
+          workout.sets?.map((set) => set.exercise_id) || []
+        ).size,
       }));
 
       setWorkouts(processedWorkouts);
@@ -79,23 +80,23 @@ const History = () => {
         {loading ? (
           <div className="p-6">Loading...</div>
         ) : (
-          <CardWrapper>
-            {workouts.map(w => (
+          <div className="flex flex-col gap-2 px-4 mt-4">
+            {workouts.map((w) => (
               <WorkoutCard
                 key={w.id}
-                workoutName={w.workout_name || 'Unnamed Workout'}
-                programName={w.programs?.program_name || ''}
+                workoutName={w.workout_name || "Unnamed Workout"}
+                programName={w.programs?.program_name || ""}
                 exerciseCount={w.exerciseCount}
                 duration={formatDuration(w.duration_seconds)}
                 onClick={() => navigate(`/history/${w.id}`)}
                 className="hover:bg-gray-200 transition-colors"
               />
             ))}
-          </CardWrapper>
+          </div>
         )}
       </div>
     </div>
   );
 };
 
-export default History; 
+export default History;

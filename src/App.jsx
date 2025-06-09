@@ -24,7 +24,7 @@ import React, { createContext, useState, useEffect } from "react";
 import NavBar from "./components/layout/NavBar";
 import SetCardDemo from "./pages/Sandbox/SetCardDemo";
 import SwipeSwitchDemo from "./pages/Sandbox/SwipeSwitchDemo";
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from "./contexts/AuthContext";
 import Login from "./pages/auth/Login";
 import CreateAccount from "./pages/auth/CreateAccount";
 import PasswordReset from "./pages/auth/PasswordReset";
@@ -36,36 +36,37 @@ export const PageNameContext = createContext({
   pageName: "",
 });
 
-function PageNameFooter() {
-  const { pageName } = React.useContext(PageNameContext);
-  if (!pageName) return null;
-  return (
-    <div
-      style={{
-        position: "fixed",
-        bottom: 8,
-        left: 0,
-        width: "100vw",
-        textAlign: "center",
-        pointerEvents: "none",
-        zIndex: 9999,
-      }}
-    >
-      <span
-        style={{
-          background: "rgba(30,30,40,0.5)",
-          color: "#fff",
-          fontSize: 12,
-          borderRadius: 8,
-          padding: "2px 12px",
-          opacity: 0.7,
-        }}
-      >
-        {pageName}
-      </span>
-    </div>
-  );
-}
+// TODO: IS THIS NEEDED?
+// function PageNameFooter() {
+//   const { pageName } = React.useContext(PageNameContext);
+//   if (!pageName) return null;
+//   return (
+//     <div
+//       style={{
+//         position: "fixed",
+//         bottom: 8,
+//         left: 0,
+//         width: "100vw",
+//         textAlign: "center",
+//         pointerEvents: "none",
+//         zIndex: 9999,
+//       }}
+//     >
+//       <span
+//         style={{
+//           background: "rgba(30,30,40,0.5)",
+//           color: "#fff",
+//           fontSize: 12,
+//           borderRadius: 8,
+//           padding: "2px 12px",
+//           opacity: 0.7,
+//         }}
+//       >
+//         {pageName}
+//       </span>
+//     </div>
+//   );
+// }
 
 function AppContent() {
   const location = useLocation();
@@ -111,7 +112,10 @@ function AppContent() {
           <Route element={<RequireAuth />}>
             <Route path="/" element={<Home />} />
             <Route path="/programs" element={<Programs />} />
-            <Route path="/programs/:programId/configure" element={<ProgramBuilder />} />
+            <Route
+              path="/programs/:programId/configure"
+              element={<ProgramBuilder />}
+            />
             <Route path="/history" element={<History />} />
             <Route path="/history/:workoutId" element={<CompletedWorkout />} />
             <Route path="/workout" element={<Workout />} />
